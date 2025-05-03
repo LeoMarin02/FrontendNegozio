@@ -1,0 +1,42 @@
+<div *ngIf="loading">Caricamento…</div>
+
+<div *ngIf="!loading">
+  <h2>Modifica Prodotto</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="save()">
+
+    <div class="form-field">
+      <label>Nome</label>
+      <input formControlName="name" />
+    </div>
+
+    <div class="form-field">
+      <label>Categoria</label>
+      <input formControlName="category" />
+    </div>
+
+    <div class="form-field">
+      <label>Prezzo</label>
+      <input type="number" formControlName="price" />
+    </div>
+
+    <div class="form-field">
+      <label>Immagine (URL)</label>
+      <input formControlName="imageUrl" />
+    </div>
+
+    <div class="form-field">
+      <label>Descrizione</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-cancel" (click)="cancel()">Annulla</button>
+      <button type="submit" [disabled]="productForm.invalid" class="btn-submit">
+        Aggiorna
+      </button>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+</div>

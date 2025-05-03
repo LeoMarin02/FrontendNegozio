@@ -1,0 +1,37 @@
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <header>
+      <h3>Login</h3>
+      <button class="close-btn" (click)="onCancel()">×</button>
+    </header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label>Email</label>
+        <input formControlName="email" type="email" placeholder="Inserisci email" />
+        <div class="field-error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">Campo obbligatorio</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Email non valida</small>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Password</label>
+        <input formControlName="password" type="password" placeholder="Inserisci password" />
+        <div class="field-error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">Campo obbligatorio</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" (click)="onCancel()" class="btn-cancel">Annulla</button>
+        <button type="submit" [disabled]="loginForm.invalid" class="btn-submit">Login</button>
+      </div>
+    </form>
+
+    <div class="switch-form">
+      <br>
+      Non hai un account? <a href="javascript:void(0)" (click)="goToRegister()">Registrati</a>
+    </div>
+  </div>
+</div>

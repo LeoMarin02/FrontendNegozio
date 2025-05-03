@@ -1,0 +1,39 @@
+<div class="modal-backdrop" *ngIf="visible" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <header>
+      <h3>{{ product ? 'Modifica Prodotto' : 'Aggiungi Prodotto' }}</h3>
+      <button class="close-btn" (click)="onCancel()">×</button>
+    </header>
+    <form [formGroup]="productForm" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label>Nome</label>
+        <input formControlName="name" placeholder="Inserisci nome prodotto" />
+      </div>
+      <div class="form-field">
+        <label>Categoria</label>
+        <input formControlName="category" list="categoryList" placeholder="Seleziona o digita nuova categoria" />
+        <datalist id="categoryList">
+          <option *ngFor="let cat of categories" [value]="cat"></option>
+        </datalist>
+      </div>
+      <div class="form-field">
+        <label>Prezzo (€)</label>
+        <input formControlName="price" type="number" placeholder="Prezzo" />
+      </div>
+      <div class="form-field">
+        <label>Immagine (URL o assets)</label>
+        <input formControlName="imageUrl" placeholder="/assets/images/nomefile.png" />
+      </div>
+      <div class="form-field">
+        <label>Descrizione</label>
+        <textarea formControlName="description" placeholder="Descrizione prodotto"></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Annulla</button>
+        <button type="submit" [disabled]="productForm.invalid" class="btn-submit">
+          {{ product ? 'Aggiorna' : 'Salva' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
