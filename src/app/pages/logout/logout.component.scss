@@ -1,0 +1,30 @@
+.logout-message {
+    text-align: center;
+    margin-top: 100px;
+  
+    h2 {
+      color: #dc3545;
+      margin-bottom: 20px;
+    }
+  
+    p {
+      color: #555;
+      margin-top: 10px;
+    }
+  }
+  
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #dc3545;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 20px auto;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

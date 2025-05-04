@@ -1,0 +1,11 @@
+<div class="user-menu">
+  <button class="icon-btn" (click)="toggleMenu()">
+    <i class="fa-regular fa-user"></i>
+  </button>
+
+  <div class="dropdown" *ngIf="showMenu && authService.currentUserValue as user">
+    <p><strong>{{ user.name }}</strong></p>
+    <p>{{ user.email }}</p>
+    <button class="btn-logout" (click)="logout()">Logout</button>
+  </div>
+</div>

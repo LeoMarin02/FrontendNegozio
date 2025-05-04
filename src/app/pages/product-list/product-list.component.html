@@ -1,0 +1,54 @@
+<div class="product-list">
+  <!-- 🟰 Barra in alto -->
+  <div class="top-bar">
+    <div class="buttons">
+      <button class="add-btn" (click)="openForm()">Aggiungi +</button>
+    </div>
+  </div>
+
+  <!-- 🟰 Modale aggiunta prodotto -->
+  <app-product-form
+    [visible]="showForm"
+    (created)="onProductCreated($event)"
+    (close)="closeForm()"
+  ></app-product-form>
+
+  <!-- 🟰 Titolo collezione -->
+  <h2>La nostra collezione</h2>
+
+  <!-- 🟰 Grid dei prodotti -->
+  <div *ngIf="products.length; else noProducts" class="products-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <div class="image-container">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" />
+      </div>
+      <div class="product-details">
+        <h3>{{ product.name }}</h3>
+        <p class="description">{{ product.description }}</p>
+        <div class="info">
+          <span class="price">{{ product.price | currency : "EUR" }}</span>
+          <button
+            class="btn-category modify"
+            type="button"
+            (click)="openEdit(product)"
+          >
+            Modifica
+          </button>
+          <span class="category">{{ product.category }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟰 Nessun prodotto -->
+  <ng-template #noProducts>
+    <p class="no-products">Nessun prodotto disponibile.</p>
+  </ng-template>
+
+  <app-product-form
+    [visible]="showEdit"
+    [product]="selectedProduct"
+    (updated)="onProductUpdated($event)"
+    (close)="closeEdit()"
+  ></app-product-form>
+</div>

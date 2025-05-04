@@ -1,0 +1,131 @@
+<!-- 1. Barra superiore / header -->
+<header class="site-header">
+  <div class="top-info">Spedizione gratuita sopra 100€</div>
+  <div class="navbar">
+    <img class="logo" [src]="logoUrl" alt="Logo LM" />
+    <!-- Menu centrale -->
+    <nav class="main-nav">
+        <a routerLink="/products">Prodotti</a>
+        <a routerLink="/products?gender=female">Donna</a>
+        <a routerLink="/products?gender=male">Uomo</a>
+        <a routerLink="/collections">Collezioni</a>
+        <a routerLink="/genius">Genius</a>
+    </nav>
+    <!-- Icone a destra -->
+    <div class="header-icons">
+      <span class="greeting" *ngIf="authService.currentUserValue">
+        Buongiorno, {{ userDisplayName }}
+      </span>
+      <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+      <div class="user-menu-wrapper" (click)="handleUserIconClick($event)">
+        <button class="icon-btn">
+          <i class="fa-regular fa-user"></i>
+        </button>
+
+        <div
+          class="user-dropdown"
+          *ngIf="showUserMenu && authService.currentUserValue as user"
+        >
+          <p><strong>{{ user.name }}</strong></p>
+          <p>{{ user.email }}</p>
+          <button class="btn-logout" (click)="logout($event)">Logout</button>
+        </div>
+      </div>
+
+      <button class="icon-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+      <button class="icon-btn"><i class="fa-solid fa-phone"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN MODAL -->
+<app-login
+  *ngIf="showLogin"
+  (close)="closeLogin()"
+  (register)="handleFromLoginRegister()"
+  (loginSuccess)="onLoginSuccess()"
+></app-login>
+
+<!-- REGISTER MODAL -->
+<app-register *ngIf="showRegister" (close)="closeRegister()"></app-register>
+
+<!-- 2. Hero banner -->
+<section class="hero">
+  <img src="/assets/images/hero-banner.png" alt="Hero Banner" />
+  <div class="hero-cta">
+    <h1>Benvenuto nella nuova collezione</h1>
+    <button routerLink="/collections" class="btn-primary">
+      Scopri la collezione
+    </button>
+  </div>
+</section>
+
+<!-- 3. Prodotti in evidenza -->
+<section class="featured">
+  <h2>Prodotti in evidenza</h2>
+  <div class="products-grid">
+    <div *ngFor="let p of featuredProducts" class="product-card">
+      <img [src]="p.imageUrl" [alt]="p.name" />
+      <h3>{{ p.name }}</h3>
+      <p class="price">{{ p.price | currency:'EUR' }}</p>
+      <button routerLink="/products/{{p.id}}" class="btn-secondary">
+        Dettagli
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Sezione Collezioni -->
+<section class="collections">
+  <div *ngFor="let col of collections" class="collection-card">
+    <img [src]="col.imageUrl" [alt]="col.label" />
+    <a [routerLink]="col.link">{{ col.label }}</a>
+  </div>
+</section>
+
+<!-- 5. Sezione Editorial / Video -->
+<section class="editorial">
+  <div class="editorial-content">
+    <h2>Storia del brand</h2>
+    <p>Esplora il nostro heritage e l’artigianalità dietro ogni capo.</p>
+    <button routerLink="/about" class="btn-secondary">
+      Scopri di più
+    </button>
+  </div>
+  <video src="/assets/images/editorial.mp4" controls muted></video>
+</section>
+
+<!-- 6. Newsletter -->
+<section class="newsletter">
+  <div class="newsletter-container">
+    <h2>Resta Aggiornato</h2>
+    <p>Iscriviti alla nostra newsletter per offerte esclusive e novità di stile.</p>
+    <form (submit)="onSubscribe($event)">
+      <input
+        type="email"
+        placeholder="La tua email"
+        required
+        class="newsletter-input"
+      />
+      <button type="submit" class="btn-primary newsletter-btn">
+        Iscriviti
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- 7. Footer -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a routerLink="/support">Assistenza</a>
+    <a routerLink="/stores">Store Locator</a>
+    <a routerLink="/privacy">Privacy</a>
+    <a routerLink="/jobs">Lavora con noi</a>
+  </div>
+  <div class="social">
+    <a href="#"><i class="icon-instagram"></i></a>
+    <a href="#"><i class="icon-facebook"></i></a>
+    <a href="#"><i class="icon-youtube"></i></a>
+  </div>
+</footer>

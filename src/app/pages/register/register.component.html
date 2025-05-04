@@ -1,0 +1,62 @@
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <header>
+      <h3>Registrati</h3>
+      <button class="close-btn" (click)="onCancel()">×</button>
+    </header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <div
+        class="form-field"
+        *ngFor="
+          let field of [
+            'name',
+            'cognome',
+            'email',
+            'password',
+            'confermaPassword',
+            'indirizzo',
+            'telefono'
+          ]
+        "
+      >
+        <label [for]="field">{{ field | titlecase }}</label>
+        <input
+          *ngIf="field !== 'password' && field !== 'confermaPassword'"
+          formControlName="{{ field }}"
+          [type]="field === 'email' ? 'email' : 'text'"
+          placeholder="Inserisci {{ field }}"
+        />
+        <input
+          *ngIf="field === 'password' || field === 'confermaPassword'"
+          formControlName="{{ field }}"
+          type="password"
+          placeholder="Inserisci {{ field }}"
+        />
+      </div>
+
+      <div class="actions">
+        <button type="button" (click)="onCancel()" class="btn-cancel">
+          Annulla
+        </button>
+        <button
+          type="submit"
+          [disabled]="registerForm.invalid"
+          class="btn-submit"
+        >
+          Registrati
+        </button>
+      </div>
+    </form>
+
+    <div class="switch-form">
+      <br>
+      Hai già un account? <a href="#" (click)="goToLogin()">Accedi</a>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  </div>
+</div>
